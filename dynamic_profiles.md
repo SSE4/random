@@ -2,7 +2,7 @@
 
 many consumers already use scripts to generate profiles in their CI systems.
 
-these scripts aren't necessarily written in python, they could be in bash/perl/ruby/js/php/m4/whatever.
+these scripts aren't necessarily written in python, they could be in bash/perl/ruby/js/php/m4/awk/whatever.
 
 usually, they could do something like:
 
