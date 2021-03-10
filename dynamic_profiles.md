@@ -65,6 +65,21 @@ in general the approach already works for any kind of scripts (or even compiled 
 
 it already supports everything needed, e.g. environment variables substituion.
 
+### env substitution example
+
+```
+$ cat gen_profile_env.sh
+#!/bin/bash
+
+echo "settings.os = $MY_OS"
+echo "settings.arch = $MY_ARCH"
+```
+```
+$ MY_OS=Windows MY_ARCH=x86_64 ./gen_profile_env.sh
+settings.os = Windows
+settings.arch = x86_64
+```
+
 ## UX problem
 
 the main problem is that right now profiles aren't really first class entities in conan UX.
