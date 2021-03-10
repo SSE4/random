@@ -128,3 +128,53 @@ conan install zlib/1.2.11@ --profile-script:build "./gen_profile_build.sh --wind
 - probably, it's not even needed to implement in conan client, if we allow command line extensions ([another idea suggested earlier](https://github.com/conan-io/conan/issues/7085))
 - unix way, uses text interface
 - doesn't require to store profile on disk
+- no breakage (all tools, custom plug-ins, scripts, integrations still work with existing profile syntax)
+
+## some notes on profiles
+
+profiles could be defined as more or less serialization (textual .ini representation) of conan options, settings, build requirements, etc.
+
+e.g. the following is a profile:
+```
+[settings]
+os = Windows
+[options]
+boost:shared = False
+```
+and another representation is just a collection of command line arguments:
+```
+-s os=Windows -o boost:shared=False
+```
+(which is still incomplete right now - we can't easily serialize build require into command line args, for instance).
+
+so profiles should be a preferred mechanism to pass information to conan client (CLI).
+
+that's why it's important to have profiles well defined - they are now primary mechanism to interact with conan CLI.
+
+the current .ini syntax is:
+- declarative
+- easy to read and understand
+- easy to process programmatically: parse, generate, modify
+
+not to mentioned, there are lots of tools tied with current syntax, at least some official:
+- CLion plug-in
+- Visual Studio extension
+- conan center
+- conan center web interface
+- conan package tools (plus bincrafters package tools)
+
+even conan CLI itself currently outputs the profile for some commands.
+
+that doesn't include many 3rd-party scripts and plug-ins enterprise users may have.
+
+if we replace .ini with PythonProfiles, the profiles will become fully turing complete, which will make it much harder to:
+- understand them - you need follow the logic of code, which could be complicated
+- process programmatically - good luck replacing os in PythonProfile with script
+
+that would be a huge maitanance burden IMO for everyone, basically for all CI scripts, and all the custom integrations.
+
+I suggest to keep .ini syntax and instead allow two modes of operation:
+- specify a profile as is, meaning literally use a concents of the profile file (like we do now)
+- specify a script to generate profile, meaning first invoke script (with arguments), then use its output as a profile
+
+the format is the same - .ini. no breakage, but all the same benefits, everyone wins.
