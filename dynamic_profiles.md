@@ -120,9 +120,11 @@ conan install zlib/1.2.11@ --profile-script:build "./gen_profile_build.sh --wind
 
 ## advantages
 
-- similar to CGI interface
-- it works well with already written scripts to generate profiles
-- it supports arbitrary scripts (bash/perl/ruby/m4/etc), not just python
+- similar to [CGI](https://en.wikipedia.org/wiki/Common_Gateway_Interface) interface
+- it works well with already written scripts to generate profiles (there are many of them)
+- it supports arbitrary scripts (bash/perl/ruby/m4/etc) and executables (c++/go/java), not just python
 - conan doesn't need to have a complex logic to support python profiles
 - python profiles don't need to declare special classes, they can just output generated profile to stdout
-- probably, it's not even needed to implement in conan client, if we allow command line extensions (another idea suggested earlier)
+- probably, it's not even needed to implement in conan client, if we allow command line extensions ([another idea suggested earlier](https://github.com/conan-io/conan/issues/7085))
+- unix way, uses text interface
+- doesn't require to store profile on disk
