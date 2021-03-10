@@ -100,7 +100,7 @@ conan install zlib/1.2.11@ --profile-script "./gen_profile.sh --windows"
 conan install zlib/1.2.11@ --profile-script:build "./gen_profile_build.sh --windows" --profile-script:host "./gen_profile_host.sh --linux"
 ```
 
-advantages:
+## advantages
 
 - similar to CGI interface
 - it works well with already written scripts to generate profiles
