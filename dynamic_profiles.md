@@ -83,6 +83,30 @@ settings.os = Windows
 settings.arch = x86_64
 ```
 
+### you already can use python profiles, maybe you missed that?
+
+```
+#!/usr/bin/env python3
+
+import sys
+
+if sys.argv[1] == "Windows":
+    print("os = Windows")
+    print("arch=x86_64")
+elif sys.argv[1] == "Linux":
+    print("os = Linux")
+```
+
+```
+$ ./gen_profile.py Linux
+os = Linux
+
+$ ./gen_profile.py Windows
+os = Windows
+arch=x86_64
+
+```
+
 ## UX problem
 
 the main problem is that right now profiles aren't really first class entities in conan UX.
